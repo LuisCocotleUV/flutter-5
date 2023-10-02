@@ -9,13 +9,8 @@ import '../services/auth_service.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
-  
-
-
-
-
  final usernameCrtl = TextEditingController();
-  final passwordCrtl = TextEditingController();
+final passwordCrtl = TextEditingController();
 
 
 class loginScreen extends StatelessWidget {
@@ -44,25 +39,18 @@ class loginScreen extends StatelessWidget {
   final TextEditingController _textEditingController_pas = TextEditingController();
     String Users="error";
     String Passwords="error";
-       var auth_service=Provider.of<AuthService>(context, listen: false);
-
-
-   
+    var auth_service=Provider.of<AuthService>(context, listen: false);
     return Scaffold
       (
-
         body: Stack(
-                 
       children: [
- 
-   
         Container(
           height: double.infinity,
           width: double.infinity,
           decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
               Color.fromARGB(255, 27, 189, 22),
-                 Color.fromARGB(255, 27, 189, 22),
+                Color.fromARGB(255, 27, 189, 22),
             ]),
           ),
           child: const Padding(
@@ -91,25 +79,23 @@ class loginScreen extends StatelessWidget {
               child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   TextField(
+                  TextField(
                   controller:  _textEditingController ,
-                   onChanged: (value) {
-                Users=value;
-              },
+                  onChanged: (value) {
+                    Users=value;
+                  },
                     decoration: InputDecoration(
                       label: Text('Usuario',style: TextStyle(
-
-
                         fontWeight: FontWeight.bold,
                         color:Color.fromARGB(255, 0, 0, 0),
                       ),)
                     ),
                   ),
-                   TextField(
-                     controller:  _textEditingController_pas ,
-                     onChanged: (value) {
-                     Passwords=value;
-              },
+                  TextField(
+                    controller:  _textEditingController_pas ,
+                    onChanged: (value) {
+                      Passwords=value;
+                    },
                     decoration: InputDecoration(
                         label: Text('Contraseña',style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -117,21 +103,6 @@ class loginScreen extends StatelessWidget {
                         ),)
                     ),
                   ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                   const SizedBox(height: 20,),
                   const Align(
                     alignment: Alignment.centerRight,
@@ -141,8 +112,6 @@ class loginScreen extends StatelessWidget {
                       color: Color(0xff281537),
                     ),),
                   ),
-
-
                   const SizedBox(height: 70,),
                     ElevatedButton(onPressed:()  async {
                   auth_service.autenticando = true;
@@ -151,41 +120,31 @@ class loginScreen extends StatelessWidget {
                     if (loginOk){
                     usernameCrtl.clear();
                     passwordCrtl.clear();
-                   // ignore: use_build_context_synchronously
                     Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Principal()));
-                    }
-
-                    else {
-print("error");
-
-                    }
-                      
+                      MaterialPageRoute(builder: (context) => const Principal()));
+                      }
+                      else {
+                        print("error");
+                      }
                     },
-                     child: Text('continuar')), 
-                     
-                  const SizedBox(height: 150,),
-                  
+                    child: Text('Continuar')), 
+                  const SizedBox(height: 15,),
                   ElevatedButton(onPressed:() async{
                     Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const RegScreen()));
+                    MaterialPageRoute(builder: (context) => RegScreen()));
                     },
-                     child: Text('Crear cuenta ')),
+                    child: Text('Crear cuenta ')),
                   const Align(
                     alignment: Alignment.bottomRight,
                     child: Column(
-                     
-                      
                     ),
                   ),
-                   
                 ],
               ),
             ),
           ),
         ),
       ],
-    
     ));
   }
 }

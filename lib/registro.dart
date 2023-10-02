@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:practica/login.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:practica/pagina.dart';
+import 'package:practica/registro.dart';
+import '../services/auth_service.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class RegScreen extends StatelessWidget {
-  const RegScreen({Key? key}) : super(key: key);
+  RegScreen({Key? key}) : super(key: key);
+
+  var username = TextEditingController(text: "");
+  var email = TextEditingController();
+  var password = TextEditingController();
+  var confirmPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var authService=Provider.of<AuthService>(context, listen: false);
+
     return Scaffold(
         body: Stack(
           children: [
@@ -44,7 +57,8 @@ class RegScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const TextField(
+                      TextField(
+                        controller: username,
                         decoration: InputDecoration(
                             label: Text('Nombre de usuario',style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -52,7 +66,8 @@ class RegScreen extends StatelessWidget {
                             ),)
                         ),
                       ),
-                      const TextField(
+                      TextField(
+                        controller: email,
                         decoration: InputDecoration(
                             label: Text('Correo electronico ',style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -60,7 +75,8 @@ class RegScreen extends StatelessWidget {
                             ),)
                         ),
                       ),
-                      const TextField(
+                      TextField(
+                        controller: password,
                         decoration: InputDecoration(
                             label: Text('Contraseña',style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -68,7 +84,8 @@ class RegScreen extends StatelessWidget {
                             ),)
                         ),
                       ),
-                      const TextField(
+                      TextField(
+                        controller: confirmPassword,
                         decoration: InputDecoration(
                             label: Text('Repita la contraseña ',style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -79,7 +96,9 @@ class RegScreen extends StatelessWidget {
 
                       const SizedBox(height: 10,),
                       const SizedBox(height: 70,),
-                       ElevatedButton(onPressed:(){
+                       ElevatedButton(onPressed:() async {
+                        await authService.register(email.text, username.text, password.text);
+                        print("crear cuenta");
                           Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const loginScreen()));
                     },

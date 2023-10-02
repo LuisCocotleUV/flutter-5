@@ -58,19 +58,19 @@ Future<bool> register(String email, String username, String password) async {
 
     final MutationOptions options = MutationOptions(
       document: gql('''
-        mutation RegisterUser( \$username: String!, \$password: String!) {
-          createUser( username: \$username, password: \$password) {
-            user {
+        mutation CreateUser(\$email: String!, \$password: String!, \$username: String!){
+          createUser(email: \$email, password: \$password, username: \$username){
+            user{
               id
-              email
+              username
             }
           }
         }
       '''),
       variables: <String, dynamic>{
         'email': email,
-        'username': username,
         'password': password,
+        'username': username,
       },
     );
 
